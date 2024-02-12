@@ -40,9 +40,9 @@ module C16 (
 	output wire CSYNC,
 	output wire HBLANK,
 	output wire VBLANK,
-	output wire [3:0] RED,
-	output wire [3:0] GREEN,
-	output wire [3:0] BLUE,
+	output wire [7:0] RED,
+	output wire [7:0] GREEN,
+	output wire [7:0] BLUE,
 	
 	output wire RAS,
 	output wire CAS,
@@ -80,8 +80,7 @@ module C16 (
 	input [1:0] SID_TYPE,
 	output [17:0] SID_AUDIO,
 
-	output AUDIO_L,
-	output AUDIO_R,
+	output [15:0] TED_AUDIO,
 
 	input [13:0] dl_addr,
 	input [7:0] dl_data,
@@ -158,6 +157,8 @@ end
 // TED 8360 instance	
 wire irq_n, cpuclk;
 
+
+
 ted mos8360(
 	.clk(CLK28),
 	.addr_in(c16_addr),
@@ -182,6 +183,7 @@ ted mos8360(
 	.aec(aec),
 	.k(kbus),
 	.snd(sound),
+	.dac_out(TED_AUDIO),
 	.pal(PAL),
 	.cpuenable(cpuenable)
 	);
@@ -250,8 +252,7 @@ mos6529 keyport(
     .cs(keyboardio)
     );
 	 
-assign AUDIO_R=sound;
-assign AUDIO_L=sound;
+
 assign RGBS=1'bz;				// VGA/RGBS jumper is not implemented in current version
 assign RS232_TX=1'bz;		// RS232 is not implemented in current version
 

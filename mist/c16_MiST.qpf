@@ -16,15 +16,15 @@
 #
 # -------------------------------------------------------------------------- #
 #
-# Quartus II 64-Bit
+# Quartus II 32-bit
 # Version 13.1.4 Build 182 03/12/2014 SJ Web Edition
-# Date created = 09:30:37  July 09, 2015
+# Date created = 13:40:14  February 12, 2024
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "13.1"
-DATE = "09:30:37  July 09, 2015"
+DATE = "13:40:14  February 12, 2024"
 
 # Revisions
 
-PROJECT_REVISION = "c16_SiDi128"
+PROJECT_REVISION = "c16_MiST"

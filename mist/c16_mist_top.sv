@@ -19,7 +19,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 //
 
-module guest_top (
+module c16_mist_top (
 	input         CLOCK_27,
 `ifdef USE_CLOCK_50
 	input         CLOCK_50,
@@ -666,7 +666,7 @@ c1530 c1530
 // ---------------------------------------------------------------------------------
 wire hs, vs;
 
-mist_video #(.COLOR_DEPTH(8), .OSD_COLOR(3'd5), .SD_HCNT_WIDTH(10), .OSD_AUTO_CE(0), .BIG_OSD(BIG_OSD), .OUT_COLOR_DEPTH(VGA_BITS)) mist_video (
+mist_video #(.COLOR_DEPTH(4), .OSD_COLOR(3'd5), .SD_HCNT_WIDTH(10), .OSD_AUTO_CE(0), .BIG_OSD(BIG_OSD), .OUT_COLOR_DEPTH(VGA_BITS)) mist_video (
 	.clk_sys     ( clk28      ),
 
 	// OSD SPI interface
@@ -728,7 +728,7 @@ i2c_master #(28_000_000) i2c_master (
 	.I2C_SDA     (HDMI_SDA)
 );
 
-mist_video #(.COLOR_DEPTH(8), .OSD_COLOR(3'd5), .SD_HCNT_WIDTH(10), .OSD_AUTO_CE(0), .OUT_COLOR_DEPTH(8), .USE_BLANKS(1'b1), .BIG_OSD(BIG_OSD), .VIDEO_CLEANER(1'b1)) hdmi_video (
+mist_video #(.COLOR_DEPTH(4), .OSD_COLOR(3'd5), .SD_HCNT_WIDTH(10), .OSD_AUTO_CE(0), .OUT_COLOR_DEPTH(8), .USE_BLANKS(1'b1), .BIG_OSD(BIG_OSD), .VIDEO_CLEANER(1'b1)) hdmi_video (
 	.clk_sys     ( clk28      ),
 
 	// OSD SPI interface
@@ -783,9 +783,9 @@ assign HDMI_PCLK = clk28;
 // c16 generated video signals
 wire c16_hs, c16_vs, c16_cs;
 wire c16_hb, c16_vb;
-wire [7:0] c16_r;
-wire [7:0] c16_g;
-wire [7:0] c16_b;
+wire [3:0] c16_r;
+wire [3:0] c16_g;
+wire [3:0] c16_b;
 wire c16_pal;
 
 // c16 generated ram access signals
@@ -816,8 +816,8 @@ end
 
 wire audio_l_out, audio_r_out;
 wire [17:0] sid_audio;
-wire [17:0] audio_data_l = sid_audio + {2'b0,dac_out} + {tap_sound & ~cass_read, 14'd0 };
-wire [17:0] audio_data_r = sid_audio + {2'b0,dac_out} + {tap_sound & ~cass_read, 14'd0 };
+wire [17:0] audio_data_l = sid_audio + { audio_l_out, tap_sound & ~cass_read, 14'd0 };
+wire [17:0] audio_data_r = sid_audio + { audio_r_out, tap_sound & ~cass_read, 14'd0 };
 
 sigma_delta_dac dac (
 	.clk      ( clk28),
@@ -863,9 +863,6 @@ spdif spdif (
 `endif
 
 // include the c16 itself
-
-wire [15:0] dac_out;
-
 C16 #(.INTERNAL_ROM(0)) c16 (
 	.CLK28   ( clk28 ),
 	.RESET   ( reset ),
@@ -916,7 +913,8 @@ C16 #(.INTERNAL_ROM(0)) c16 (
 
 	.SID_TYPE    ( sid_type    ),
 	.SID_AUDIO   ( sid_audio   ),
-	.TED_AUDIO   ( dac_out),
+	.AUDIO_L     ( audio_l_out ),
+	.AUDIO_R     ( audio_r_out ),
 
 	.PAL         ( c16_pal ),
 	

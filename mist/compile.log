@@ -1,0 +1,37 @@
+Info: *******************************************************************
+Info: Running Quartus II 32-bit Shell
+    Info: Version 13.1.4 Build 182 03/12/2014 SJ Web Edition
+    Info: Copyright (C) 1991-2014 Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, Altera MegaCore Function License 
+    Info: Agreement, or other applicable license agreement, including, 
+    Info: without limitation, that your use is for the sole purpose of 
+    Info: programming logic devices manufactured by Altera and sold by 
+    Info: Altera or its authorized distributors.  Please refer to the 
+    Info: applicable agreement for further details.
+    Info: Processing started: Mon Feb 12 13:40:13 2024
+Info: Command: quartus_sh --flow compile mist/c16_MiST.qpf
+Info: Quartus(args): compile mist/c16_MiST.qpf
+Info: Project Name = /home/rampa/CORES/demist/c16/mist/c16_MiST
+Info: Revision Name = c16_MiST
+Info: *******************************************************************
+Info: Running Quartus II 32-bit Analysis & Synthesis
+    Info: Version 13.1.4 Build 182 03/12/2014 SJ Web Edition
+    Info: Processing started: Mon Feb 12 13:40:17 2024
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off c16_MiST -c c16_MiST
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Error (12007): Top-level design entity "c16_MiST" is undefined
+Error: Quartus II 32-bit Analysis & Synthesis was unsuccessful. 1 error, 1 warning
+    Error: Peak virtual memory: 387 megabytes
+    Error: Processing ended: Mon Feb 12 13:40:18 2024
+    Error: Elapsed time: 00:00:01
+    Error: Total CPU time (on all processors): 00:00:01
+Error (293001): Quartus II Full Compilation was unsuccessful. 3 errors, 1 warning
+Error: Flow compile (for project /home/rampa/CORES/demist/c16/mist/c16_MiST) was not successful
+Error: ERROR: Error(s) found while running an executable. See report file(s) for error message(s). Message log indicates which executable was run last.
+
